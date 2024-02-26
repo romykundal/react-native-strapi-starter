@@ -74,6 +74,10 @@ const OrderDetailsPage: React.FC<OrderDetailsPageProps> = ({ route }) => {
         <Text style={styles.value}>{orderDetails.attributes.customer_id.data[0].attributes.email}</Text>
       </View>
       <View style={styles.detailItem}>
+        <Text style={styles.label}>Customer Phone:</Text>
+        <Text style={styles.value}>{orderDetails.attributes.customer_id.data[0].attributes.phoneNumber}</Text>
+      </View>
+      <View style={styles.detailItem}>
         <Text style={styles.label}>Product Name:</Text>
         <Text style={styles.value}>{orderDetails.attributes.product_id.data.attributes.name}</Text>
       </View>
