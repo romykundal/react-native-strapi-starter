@@ -1,4 +1,3 @@
-// screens/OrderListingPage.tsx
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, ActivityIndicator, StyleSheet, FlatList } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
@@ -12,6 +11,7 @@ interface OrderListingPageProps {
 const OrderListingPage: React.FC<OrderListingPageProps> = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [orderList, setOrderList] = useState<any[]>([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     fetchOrders();
@@ -25,6 +25,7 @@ const OrderListingPage: React.FC<OrderListingPageProps> = ({ navigation }) => {
       console.error('Error fetching orders:', error);
     } finally {
       setLoading(false);
+      setRefreshing(false);
     }
   };
 
@@ -51,6 +52,11 @@ const OrderListingPage: React.FC<OrderListingPageProps> = ({ navigation }) => {
     );
   };
 
+  const handleRefresh = () => {
+    setRefreshing(true);
+    fetchOrders();
+  };
+
   return (
     <View style={styles.container}>
       {loading ? (
@@ -61,6 +67,9 @@ const OrderListingPage: React.FC<OrderListingPageProps> = ({ navigation }) => {
           renderItem={renderItem}
           keyExtractor={(item) => item.id.toString()}
           contentContainerStyle={styles.orderList}
+          refreshing={refreshing}
+          onRefresh={handleRefresh}
+          onEndReachedThreshold={0.1} // Adjust threshold as needed
         />
       )}
     </View>
