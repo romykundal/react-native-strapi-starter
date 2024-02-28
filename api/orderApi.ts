@@ -13,7 +13,7 @@ interface Order {
     // Simulate API call
     const response = await fetch(`${BASE_URL}api/orders`);
     const data = await response.json();
-    console.log("data response debug order>>>>>>>", data)
+    console.log("response debug order>>>>>>>", data)
     return data.data;
   };
   
